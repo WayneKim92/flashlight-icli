@@ -2,8 +2,9 @@
   "name": "flashlight-icli",
   "version": "0.1.0",
   "description": "Interactive command line interface for flashlight",
-  "main": "index.ts",
+  "main": "/src/index.ts",
   "scripts": {
+    "example": "ts-node example/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,6 +14,10 @@
   "author": "wayne-kim",
   "license": "ISC",
   "devDependencies": {
+    "@types/i18n-js": "3.8.4",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "i18n-js": "3.9.2"
   }
 }
