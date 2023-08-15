@@ -4,9 +4,8 @@
   "description": "Interactive command line interface for flashlight",
   "main": "/src/index.ts",
   "scripts": {
-    "example": "ts-node example/index.ts",
-    "dev": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "npm run build && npm publish"
   },
   "bin": {
     "flashlight-icli": "./dis/index.js"
