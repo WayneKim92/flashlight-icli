@@ -12,6 +12,7 @@ program.command('init')
         // 명령어를 입력한 경로를 얻는다.
 
         console.log(__dirname);
+        console.log('TEST');
 
         // flashlight를 위한 디렉토리 생성
         // flashlight/reports
