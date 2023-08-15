@@ -1,0 +1,18 @@
+{
+  "name": "flashlight-icli",
+  "version": "0.1.0",
+  "description": "Interactive command line interface for flashlight",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "flashlight"
+  ],
+  "author": "wayne-kim",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
