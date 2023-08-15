@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { program } from 'commander';
+const { program } = require('commander');
 
 program
     .name('flashlight-icli')
@@ -13,6 +13,7 @@ program.command('init')
 
         console.log(__dirname);
         console.log('TEST');
+        console.log('TEST123');
 
         // flashlight를 위한 디렉토리 생성
         // flashlight/reports
