@@ -1,6 +1,6 @@
 {
   "name": "flashlight-icli",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Interactive command line interface for flashlight",
   "main": "/src/index.ts",
   "scripts": {
@@ -8,7 +8,7 @@
     "deploy": "npm publish"
   },
   "bin": {
-    "my-init": "./dist/index.js init"
+    "flashlight-icli": "./dist/index.js"
   },
   "keywords": [
     "react-native",
