@@ -1,6 +1,6 @@
 {
   "name": "flashlight-icli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Interactive command line interface for flashlight",
   "main": "/src/index.ts",
   "scripts": {
