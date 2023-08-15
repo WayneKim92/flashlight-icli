@@ -48,6 +48,7 @@ commander_1.program.command('init')
     return __generator(this, function (_a) {
         // 명령어를 입력한 경로를 얻는다.
         console.log(__dirname);
+        console.log('TEST');
         return [2 /*return*/];
     });
 }); });

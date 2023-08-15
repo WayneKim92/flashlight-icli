@@ -1,11 +1,11 @@
 {
   "name": "flashlight-icli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Interactive command line interface for flashlight",
   "main": "/src/index.ts",
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
-    "deploy": "npm run build && npm publish"
+    "deploy": "npm publish"
   },
   "bin": {
     "flashlight-icli": "./dist/index.js"
