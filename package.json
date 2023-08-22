@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
     "icli": "ts-node src/index.ts",
+    "clean-npx-cache": "npx clear-npx-cache",
     "deploy": "tsc && chmod +x dist/index.js && npm publish"
   },
   "bin": {
