@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
-    "deploy": "npm publish"
+    "icli": "ts-node src/index.ts",
+    "deploy": "tsc && chmod +x dist/index.js && npm publish"
   },
   "bin": {
-    "my-script": "index.js"
+    "my-script": "dist/index.js"
   },
   "keywords": [
     "react-native",
