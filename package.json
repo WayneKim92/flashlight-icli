@@ -1,6 +1,6 @@
 {
   "name": "flashlight-icli",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Interactive command line interface for flashlight",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,10 @@
   ],
   "author": "wayne-kim",
   "license": "ISC",
+  "dependencies": {
+    "commander": "^11.0.0"
+  },
   "devDependencies": {
-    "commander": "^11.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
