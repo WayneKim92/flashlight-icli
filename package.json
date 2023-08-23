@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc && chmod +x dist/index.js",
-    "icli" : "node dist/index.js",
+    "icli": "node dist/index.js",
     "clean-npx-cache": "npx clear-npx-cache",
     "deploy": "npm run build && npm publish"
   },
@@ -20,6 +20,7 @@
   "author": "wayne-kim",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.2",
     "commander": "^11.0.0"
   },
   "devDependencies": {

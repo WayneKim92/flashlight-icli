@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import chalk from "chalk";
+import { isInstalledCli } from './utils';
 
-export const init = () => {
+export const init = async () => {
     const currentWorkingDirectory = process.cwd();
-    console.log('Current working directory:', currentWorkingDirectory);
+    console.log(`${chalk.blue('Current working directory:')} ${currentWorkingDirectory}`);
 
     const foldersToCreate = [
         'flashlight/reports',
@@ -15,11 +17,20 @@ export const init = () => {
 
         if (!fs.existsSync(fullPath)) {
             fs.mkdirSync(fullPath, { recursive: true });
-            console.log(`Created folder: ${fullPath}`);
+            console.log(`${chalk.blue('Created folder:')} ${fullPath}`);
         } else {
-            console.log(`Folder already exists: ${fullPath}`);
+            console.log(`${chalk.blue('Folder already exists:')} ${fullPath}`);
         }
     });
 
-    // bundle id 입력
+    // flashlight 설치 확인, 설치 안되어 있으면 설치
+    const result = await isInstalledCli('flashlight');
+    console.log({result})
+    //curl https://get.flashlight.dev | bash
+
+    // maestro 설치 확인, 설치 안되어 있으면 설치
+
+    // config.json 파일 생성
+
+    // app bundle id 입력
 }
