@@ -1,12 +1,26 @@
 import fs from "fs";
+import path from 'path';
 import {promisify} from 'util'
 import child_process from 'child_process';
 import chalk from "chalk";
 import inquirer from 'inquirer';
 
+const accessAsync = promisify(fs.access);
 const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 const exec = promisify(child_process.exec);
+
+export const checkInitialization = async () => {
+    try {
+        const rootPath = getScriptRunDirectoryPath();
+        const configPath = path.join(rootPath, 'flashlight', 'config.json');
+
+        await accessAsync(configPath);
+        return true; // File exists
+    } catch (error) {
+        return false; // File does not exist
+    }
+}
 
 export const getScriptRunDirectoryPath = () => process.cwd();
 

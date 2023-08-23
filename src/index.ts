@@ -4,6 +4,8 @@ import inquirer from 'inquirer';
 import {init} from './init';
 import {showLogo} from "./showLogo";
 import {report} from "./report";
+import {checkInitialization} from "./utils";
+import chalk from "chalk";
 
 const features = ['test', 'report'];
 
@@ -13,6 +15,12 @@ program
     .version('0.1.0')
     .action(async () => {
         showLogo();
+
+        const isInitialized = await checkInitialization();
+        if(!isInitialized){
+            console.log(chalk.red('run: flashlight-icli init'));
+            return;
+        }
 
         const {feature} = await inquirer.prompt([
             {
