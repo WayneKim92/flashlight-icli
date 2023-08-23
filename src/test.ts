@@ -1,7 +1,8 @@
 import inquirer from 'inquirer';
 import shell from 'shelljs';
-import { isEmpty } from 'lodash';
-import { selectFiles } from './utils';
+import semver from 'semver';
+import {getConfig, getScriptRunDirectoryPath, selectFiles} from './utils';
+import path from "path";
 
 function formatDate(date: Date) {
     const year = date.getFullYear();
@@ -15,10 +16,12 @@ function formatDate(date: Date) {
 }
 
 export const test = async () => {
-    const folderPath = 'flashlight/e2e';
-    const e2eScriptFileName = await selectFiles({ folderPath, message: 'Select a e2e script.', type: 'list' });
+    const rootPath = getScriptRunDirectoryPath();
+    const e2eFolderPath = path.join(rootPath, 'flashlight/e2e');
+    const reportsFolderPath = path.join(rootPath, 'flashlight/reports');
+    const e2eScriptFileName = await selectFiles({folderPath:e2eFolderPath, message: 'Select a e2e script.', type: 'list'});
 
-    const { reportName } = await inquirer.prompt([
+    const {reportName} = await inquirer.prompt([
         {
             type: 'input',
             name: 'reportName',
@@ -27,7 +30,7 @@ export const test = async () => {
         },
     ]);
 
-    const { iterationCount } = await inquirer.prompt([
+    const {iterationCount} = await inquirer.prompt([
         {
             type: 'input',
             name: 'iterationCount',
@@ -36,17 +39,16 @@ export const test = async () => {
         },
     ]);
 
-    // 기기 연결
-    const adbDevicesOutput = shell.exec('adb devices', { silent: true });
+    const adbDevicesOutput = shell.exec('adb devices', {silent: true});
     const deviceLines = adbDevicesOutput.stdout.trim().split('\n');
     const devices = deviceLines.slice(1).map((line) => line.split('\t')[0]);
 
-    if (isEmpty(devices)) {
+    if (devices.length === 0) {
         console.error('Error: There are no devices available for connection. Please connect the device.');
         shell.exit(1);
     }
 
-    const { device } = await inquirer.prompt([
+    const {device} = await inquirer.prompt([
         {
             type: 'list',
             name: 'device',
@@ -55,8 +57,7 @@ export const test = async () => {
         },
     ]);
 
-    // 앱 설치
-    const { shouldInstall } = await inquirer.prompt([
+    const {shouldInstall} = await inquirer.prompt([
         {
             type: 'confirm',
             name: 'shouldInstall',
@@ -65,15 +66,18 @@ export const test = async () => {
             default: true,
         },
     ]);
-    // variant 변경
     if (shouldInstall as boolean) {
-        // flag 입력 가능하게 변경
-        shell.exec('react-native run-android --variant=releasestaging');
+        const config = await getConfig();
+
+        // react-native@0.71.0 부터 rn-cli 버전이 10.0.0 이상이다.
+        const variantFlagName = semver.compare(config.rnCliVersion, '10.0.0') >= 0 ? 'mode' : 'variant';
+        console.log({variantFlagName});
+        shell.exec(`react-native run-android --${variantFlagName}=${config.variant}`);
     }
 
     // 성능 측정 스크립트 실행
     shell.exec(
-        `flashlight test --bundleId com.soomgo.debug --testCommand "maestro --device ${device} test ${folderPath}/${e2eScriptFileName}" --resultsFilePath flashlight/reports/${reportName}.json --iterationCount ${iterationCount}`,
+        `flashlight test --bundleId com.soomgo.debug --testCommand "maestro --device ${device} test ${e2eFolderPath}/${e2eScriptFileName}" --resultsFilePath ${reportsFolderPath}/${reportName}.json --iterationCount ${iterationCount}`,
     );
 
     console.log(

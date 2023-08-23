@@ -118,3 +118,17 @@ export const isReactNativeCliVersion = () => {
     return version;
 }
 
+export const getConfig = async () => {
+    try {
+        const rootPath = getScriptRunDirectoryPath();
+        const data = await readFileAsync(path.join(rootPath, 'flashlight/config.json'), 'utf-8');
+
+        return JSON.parse(data) as {
+            bundleId: string;
+            rnCliVersion: string;
+            variant: string;
+        }
+    } catch (error) {
+        console.error(chalk.red(`Error copying file: ${error.message}`));
+    }
+}
