@@ -79,12 +79,4 @@ export const test = async () => {
     shell.exec(
         `flashlight test --bundleId com.soomgo.debug --testCommand "maestro --device ${device} test ${e2eFolderPath}/${e2eScriptFileName}" --resultsFilePath ${reportsFolderPath}/${reportName}.json --iterationCount ${iterationCount}`,
     );
-
-    console.log(
-        `\n
-성능 리포트 파일 용량이 크므로 공유가 필요한 경우, 아래 명령어로 zip 파일로 만들어서 PR로 올려주세요.
-참고, https://github.com/Soomgo-Mobile/soomgo-mobile-app/pull/8620\n
-$zip [zip_파일_이름].zip [리포트_파일_이름].json\n
-`,
-    );
 };
