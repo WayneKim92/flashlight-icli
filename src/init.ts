@@ -30,6 +30,11 @@ export const init = async () => {
         shell.exec('curl https://get.flashlight.dev | bash');
     }
 
+    const isMaestroInstalled = await isInstalledCli('maestro');
+    if (!isMaestroInstalled) {
+        console.log(chalk.green('Start maestro installation'))
+        shell.exec('curl -Ls "https://get.maestro.mobile.dev" | bash');
+    }
     // maestro 설치 확인, 설치 안되어 있으면 설치
 
     // config.json 파일 생성
