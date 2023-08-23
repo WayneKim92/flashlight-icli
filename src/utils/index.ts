@@ -84,8 +84,19 @@ export const copyFileAsync = async (sourcePath: string, destinationPath: string)
     try {
         const data = await readFileAsync(sourcePath);
         await writeFileAsync(destinationPath, data);
-        console.log(chalk.green( `File copied from ${sourcePath} to:`), destinationPath);
+        // console.log(chalk.green( `File copied from ${sourcePath} to:`), destinationPath);
     } catch (error) {
         console.error(chalk.red(`Error copying file: ${error.message}`));
     }
 };
+
+export const writeFile = async (destinationPath, str) => {
+    try {
+        const rootPath = getScriptRunDirectoryPath();
+        const filePath = path.join(rootPath, destinationPath);
+        await writeFileAsync(filePath, str, 'utf8');
+        // console.log(chalk.green(`Wrote a file at:`), filePath);
+    } catch(error){
+        console.error(chalk.red('Error write file'), error);
+    }
+}

@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from "chalk";
 import shell from 'shelljs'
 import inquirer from 'inquirer';
-import {isInstalledCli, isAndroidBundleIdFormat, getScriptRunDirectoryPath, copyFileAsync} from './utils';
+import {isInstalledCli, isAndroidBundleIdFormat, getScriptRunDirectoryPath, copyFileAsync, writeFile} from './utils';
 
 export const init = async () => {
     const rootPath = getScriptRunDirectoryPath();
@@ -50,21 +50,34 @@ export const init = async () => {
             },
         },
     ]);
-
     const configStr = JSON.stringify({ bundleId });
-    const configPath = path.join(rootPath, 'flashlight','config.json');
-    // async로 바꾸자.
-    fs.writeFile(configPath, configStr, 'utf8', (err) => {
-        if (err) {
-            console.error(chalk.red('Error saving config.json file:'), err);
-        } else {
-            console.log(chalk.green(`Saved to config.json at:`), configPath);
-        }
-    });
+    const configPath = path.join('flashlight','config.json');
+    await writeFile(configPath, configStr)
+
+    const sampleE2ESample = `
+appId: ${bundleId}
+---
+- launchApp
+- swipe:
+    direction: UP
+    duration: 100
+- swipe:
+    direction: UP
+    duration: 100
+- swipe:
+    direction: UP
+    duration: 100
+- swipe:
+    direction: DOWN
+    duration: 200
+- swipe:
+    direction: DOWN
+    duration: 150
+`
+    await writeFile(path.join('flashlight','e2e', 'sample-e2e.yaml'), sampleE2ESample);
 
     const sampleReportPath = path.join(__dirname, '..', 'samples', 'sample-report.json');
     const copiedSampleReportPath = path.join(rootPath, 'flashlight','reports','sample-report.json');
     await copyFileAsync(sampleReportPath, copiedSampleReportPath)
-
-
+    console.log(chalk.blue('Copied samples at:'), path.join(rootPath,'flashlight'));
 }
