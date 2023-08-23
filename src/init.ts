@@ -60,19 +60,16 @@ export const init = async () => {
 
     const rnCliVersion = isReactNativeCliVersion();
 
-    console.log({rnCliVersion});
+    const { variant } = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'variant',
+            message: 'Enter a android app\'s release variant(or mode) name:',
+            default: 'release'
+        },
+    ]);
 
-    // react-native --version -v
-    // react-native -v
-    // react-native@0.71.0의 cli version 보다 높은 지, 낮은 지 확인하기
-    // 10.0.0 보다
-    // 높으면 --mode
-    // 그 외 --variant
-    // Enter your app's release build variant(or mode)
-    // release
-    // react-native version 확인!
-
-    const configStr = JSON.stringify({ bundleId });
+    const configStr = JSON.stringify({ bundleId, rnCliVersion, variant });
     const configPath = path.join('flashlight','config.json');
     await writeFile(configPath, configStr)
 
