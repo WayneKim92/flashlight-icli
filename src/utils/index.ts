@@ -112,9 +112,6 @@ export const isReactNativeCliVersion = () => {
     versionOutputs.forEach((versionOutput) => {
         if (versionOutput.code === 0) {
             version = versionOutput.stdout.trim();
-
-            // @ts-ignore
-            break;
         }
     })
 
