@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {program} from 'commander';
 import inquirer from 'inquirer';
+import shell from 'shelljs';
 import {init} from './init';
 import {showLogo} from "./showLogo";
 
@@ -16,7 +17,7 @@ program
         const {feature} = await inquirer.prompt([
             {
                 type: 'list',
-                name: 'mode',
+                name: 'feature',
                 message: 'Select a feature.',
                 choices: features,
             },
@@ -24,7 +25,8 @@ program
 
         switch (feature) {
             case features[0]:
-                // feature 1 - 수동 성능 측정 'measure'
+                // 음... 왜 안 되는 지 확인 필요
+                shell.exec('flashlight measure');
                 break;
             case features[1]:
                 // feature 2 - X번 자동으로 테스트하기 'test'

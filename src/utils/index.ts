@@ -20,3 +20,8 @@ export const isInstalledCli = async (cliName) => {
         return false;
     }
 };
+
+export const isAndroidBundleIdFormat = (input: string): boolean => {
+    const androidBundleIdRegex = /^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)*$/;
+    return androidBundleIdRegex.test(input);
+}

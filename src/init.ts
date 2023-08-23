@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import chalk from "chalk";
 import shell from 'shelljs'
-import {isInstalledCli} from './utils';
+import inquirer from 'inquirer';
+import {isInstalledCli, isAndroidBundleIdFormat} from './utils';
 
 export const init = async () => {
     const currentWorkingDirectory = process.cwd();
@@ -36,7 +37,28 @@ export const init = async () => {
         shell.exec('curl -Ls "https://get.maestro.mobile.dev" | bash');
     }
 
-    // config.json 파일 생성
+    const { bundleId } = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'bundleId',
+            message: 'Enter a android app\'s bundle id (ex: com.xxx.xxx):',
+            validate: (input) => {
+                if (isAndroidBundleIdFormat(input)) {
+                    return true;
+                } else {
+                    return 'Invalid Android Bundle ID format. Please enter a valid ID.';
+                }
+            },
+        },
+    ]);
 
-    // app bundle id 입력
+    const configStr = JSON.stringify({ bundleId });
+    const configPath = path.join(__dirname, 'flashlight','config.json');
+    fs.writeFile(configPath, configStr, 'utf8', (err) => {
+        if (err) {
+            console.error(chalk.red('Error saving config.json file:'), err);
+        } else {
+            console.log(chalk.green(`Saved to config.json at:`), configPath);
+        }
+    });
 }
