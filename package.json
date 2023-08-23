@@ -21,7 +21,8 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
-    "commander": "^11.0.0"
+    "commander": "^11.0.0",
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",

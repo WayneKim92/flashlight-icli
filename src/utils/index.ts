@@ -1,18 +1,22 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+import util from 'util'
+import child_process from 'child_process';
+import chalk from "chalk";
+
+const exec = util.promisify(child_process.exec);
 
 export const isInstalledCli = async (cliName) => {
     try {
-        const {stdout, _stderr} = await exec(`which ${cliName}`);
+        const {stdout} = await exec(`which ${cliName}`);
 
         if (stdout) {
-            console.log(`${cliName} is installed at: ${stdout.trim()}`);
-            return 0;
+            console.log(chalk.blue(`${cliName} is installed at:`) + `${stdout.trim()}`);
+            return true;
         } else {
-            console.log(`${cliName} is not installed.`);
-            return 1;
+            console.log(chalk.red(`${cliName} is not installed.`));
+            return false;
         }
     } catch (e) {
-        return -1;
+        console.log(chalk.red(`${cliName} is not installed.`));
+        return false;
     }
 };

@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from "chalk";
-import { isInstalledCli } from './utils';
+import shell from 'shelljs'
+import {isInstalledCli} from './utils';
 
 export const init = async () => {
     const currentWorkingDirectory = process.cwd();
@@ -16,17 +17,18 @@ export const init = async () => {
         const fullPath = path.join(__dirname, folderPath);
 
         if (!fs.existsSync(fullPath)) {
-            fs.mkdirSync(fullPath, { recursive: true });
+            fs.mkdirSync(fullPath, {recursive: true});
             console.log(`${chalk.blue('Created folder:')} ${fullPath}`);
         } else {
             console.log(`${chalk.blue('Folder already exists:')} ${fullPath}`);
         }
     });
 
-    // flashlight 설치 확인, 설치 안되어 있으면 설치
-    const result = await isInstalledCli('flashlight');
-    console.log({result})
-    //curl https://get.flashlight.dev | bash
+    const isFlashlightInstalled = await isInstalledCli('flashlight');
+    if (!isFlashlightInstalled) {
+        console.log(chalk.green('Start flashlight installation'))
+        shell.exec('curl https://get.flashlight.dev | bash');
+    }
 
     // maestro 설치 확인, 설치 안되어 있으면 설치
 
