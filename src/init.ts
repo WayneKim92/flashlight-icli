@@ -3,19 +3,18 @@ import path from 'path';
 import chalk from "chalk";
 import shell from 'shelljs'
 import inquirer from 'inquirer';
-import {isInstalledCli, isAndroidBundleIdFormat} from './utils';
+import {isInstalledCli, isAndroidBundleIdFormat, getScriptRunDirectoryPath, copyFileAsync} from './utils';
 
 export const init = async () => {
-    const currentWorkingDirectory = process.cwd();
-    console.log(`${chalk.blue('Current working directory:')} ${currentWorkingDirectory}`);
+    const rootPath = getScriptRunDirectoryPath();
+    console.log(`${chalk.blue('Current working directory:')} ${rootPath}`);
 
     const foldersToCreate = [
         'flashlight/reports',
         'flashlight/e2e'
     ];
-
     foldersToCreate.forEach(folderPath => {
-        const fullPath = path.join(__dirname, folderPath);
+        const fullPath = path.join(rootPath, folderPath);
 
         if (!fs.existsSync(fullPath)) {
             fs.mkdirSync(fullPath, {recursive: true});
@@ -53,7 +52,8 @@ export const init = async () => {
     ]);
 
     const configStr = JSON.stringify({ bundleId });
-    const configPath = path.join(__dirname, 'flashlight','config.json');
+    const configPath = path.join(rootPath, 'flashlight','config.json');
+    // async로 바꾸자.
     fs.writeFile(configPath, configStr, 'utf8', (err) => {
         if (err) {
             console.error(chalk.red('Error saving config.json file:'), err);
@@ -61,4 +61,10 @@ export const init = async () => {
             console.log(chalk.green(`Saved to config.json at:`), configPath);
         }
     });
+
+    const sampleReportPath = path.join(__dirname, '..', 'samples', 'sample-report.json');
+    const copiedSampleReportPath = path.join(rootPath, 'flashlight','reports','sample-report.json');
+    await copyFileAsync(sampleReportPath, copiedSampleReportPath)
+
+
 }
