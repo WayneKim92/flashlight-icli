@@ -2,8 +2,9 @@ import fs from "fs";
 import path from 'path';
 import {promisify} from 'util'
 import child_process from 'child_process';
-import chalk from "chalk";
+import chalk from 'chalk';
 import inquirer from 'inquirer';
+import shell from 'shelljs';
 
 const accessAsync = promisify(fs.access);
 const readFileAsync = promisify(fs.readFile);
@@ -96,7 +97,27 @@ export const writeFile = async (destinationPath, str) => {
         const filePath = path.join(rootPath, destinationPath);
         await writeFileAsync(filePath, str, 'utf8');
         // console.log(chalk.green(`Wrote a file at:`), filePath);
-    } catch(error){
+    } catch (error) {
         console.error(chalk.red('Error write file'), error);
     }
 }
+
+export const isReactNativeCliVersion = () => {
+    let version = "0.0.0";
+    const versionOutput1 = shell.exec('react-native --version', {silent: true});
+    const versionOutput2 = shell.exec('react-native -v', {silent: true});
+
+    const versionOutputs = [versionOutput1, versionOutput2];
+
+    versionOutputs.forEach((versionOutput) => {
+        if (versionOutput.code === 0) {
+            version = versionOutput.stdout.trim();
+
+            // @ts-ignore
+            break;
+        }
+    })
+
+    return version;
+}
+

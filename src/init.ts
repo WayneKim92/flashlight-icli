@@ -3,7 +3,14 @@ import path from 'path';
 import chalk from "chalk";
 import shell from 'shelljs'
 import inquirer from 'inquirer';
-import {isInstalledCli, isAndroidBundleIdFormat, getScriptRunDirectoryPath, copyFileAsync, writeFile} from './utils';
+import {
+    isInstalledCli,
+    isAndroidBundleIdFormat,
+    getScriptRunDirectoryPath,
+    copyFileAsync,
+    writeFile,
+    isReactNativeCliVersion
+} from './utils';
 
 export const init = async () => {
     const rootPath = getScriptRunDirectoryPath();
@@ -50,6 +57,21 @@ export const init = async () => {
             },
         },
     ]);
+
+    const rnCliVersion = isReactNativeCliVersion();
+
+    console.log({rnCliVersion});
+
+    // react-native --version -v
+    // react-native -v
+    // react-native@0.71.0의 cli version 보다 높은 지, 낮은 지 확인하기
+    // 10.0.0 보다
+    // 높으면 --mode
+    // 그 외 --variant
+    // Enter your app's release build variant(or mode)
+    // release
+    // react-native version 확인!
+
     const configStr = JSON.stringify({ bundleId });
     const configPath = path.join('flashlight','config.json');
     await writeFile(configPath, configStr)
@@ -80,4 +102,6 @@ appId: ${bundleId}
     const copiedSampleReportPath = path.join(rootPath, 'flashlight','reports','sample-report.json');
     await copyFileAsync(sampleReportPath, copiedSampleReportPath)
     console.log(chalk.blue('Copied samples at:'), path.join(rootPath,'flashlight'));
+
+    console.log(chalk.green('flashlight-icli initialized'))
 }

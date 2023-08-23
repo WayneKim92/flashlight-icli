@@ -4,6 +4,7 @@ import inquirer from 'inquirer';
 import {init} from './init';
 import {showLogo} from "./showLogo";
 import {report} from "./report";
+import {test} from "./test";
 import {checkInitialization} from "./utils";
 import chalk from "chalk";
 
@@ -33,17 +34,16 @@ program
 
         switch (feature) {
             case features[0]:
-                // feature 2 - X번 자동으로 테스트하기 'test'
+                await test();
                 break;
             case features[1]:
                 await report()
-                // feature 3 - report 선택해서 보기 'report'
                 break;
         }
     })
 
 program.command('init')
     .description('init flashlight-icli')
-    .action(async (_str, _options) => init());
+    .action(async () => init());
 
 program.parse();
