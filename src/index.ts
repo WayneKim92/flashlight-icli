@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-const { program } = require('commander');
+import { program } from 'commander';
+import { init } from './init';
 
 program
     .name('flashlight-icli')
@@ -8,21 +9,6 @@ program
 
 program.command('init')
     .description('init flashlight-icli')
-    .action(async (str, options) => {
-        // 명령어를 입력한 경로를 얻는다.
-
-        console.log(__dirname);
-        console.log('TEST');
-        console.log('TEST123');
-
-        // flashlight를 위한 디렉토리 생성
-        // flashlight/reports
-        // flashlight/e2e
-        // flashlight/e2e/sample.yaml
-
-
-        // bundle id 입력
-        //
-    });
+    .action(async (_str, _options) => init());
 
 program.parse();

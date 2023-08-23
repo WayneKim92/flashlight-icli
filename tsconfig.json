@@ -1,6 +1,10 @@
 {
     "compilerOptions": {
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "target": "ESNext",
+        "esModuleInterop": true,
+        "module": "CommonJS",
+        "moduleResolution": "Node"
     },
     "include": ["src/**/*.ts"]
 }
