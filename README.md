@@ -3,8 +3,8 @@ Interactive Command Line Interface for flashlight
 
 ## Commands
 ```
-npx flashlight init
-npx flashlight
+npx flashlight-icli init
+npx flashlight-icli
 ```
 
 ## Video
