@@ -1,8 +1,7 @@
 {
   "name": "flashlight-icli",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Interactive command line interface for flashlight",
-  "main": "index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc && chmod +x dist/index.js",
@@ -17,6 +16,8 @@
     "react-native",
     "flashlight"
   ],
+  "repository": "https://github.com/WayneKim92/flashlight-icli",
+  "homepage": "https://github.com/WayneKim92/flashlight-icli#readme",
   "author": "wayne-kim",
   "license": "ISC",
   "dependencies": {
