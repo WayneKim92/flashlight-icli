@@ -8,5 +8,5 @@ npx flashlight
 ```
 
 ## Video
-<video src="https://github.com/WayneKim92/flashlight-icli/assets/75321423/ce8cae93-c006-476e-9e75-f7653c8b3c93"/>
 
+<video src="https://github.com/WayneKim92/flashlight-icli/assets/75321423/2bd4dd31-7003-4aaa-b79f-bb630a4be9ea" width="600px" />
