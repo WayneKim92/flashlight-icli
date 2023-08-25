@@ -66,9 +66,10 @@ export const test = async () => {
             default: true,
         },
     ]);
-    if (shouldInstall as boolean) {
-        const config = await getConfig();
 
+    const config = await getConfig();
+
+    if (shouldInstall as boolean) {
         // react-native@0.71.0 부터 rn-cli 버전이 10.0.0 이상이다.
         const variantFlagName = semver.compare(config.rnCliVersion, '10.0.0') >= 0 ? 'mode' : 'variant';
         console.log({variantFlagName});
@@ -77,6 +78,6 @@ export const test = async () => {
 
     // 성능 측정 스크립트 실행
     shell.exec(
-        `flashlight test --bundleId com.soomgo.debug --testCommand "maestro --device ${device} test ${e2eFolderPath}/${e2eScriptFileName}" --resultsFilePath ${reportsFolderPath}/${reportName}.json --iterationCount ${iterationCount}`,
+        `flashlight test --bundleId ${config.bundleId} --testCommand "maestro --device ${device} test ${e2eFolderPath}/${e2eScriptFileName}" --resultsFilePath ${reportsFolderPath}/${reportName}.json --iterationCount ${iterationCount}`,
     );
 };
