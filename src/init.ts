@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from "chalk";
-import shell from 'shelljs'
 import inquirer from 'inquirer';
 import {
-    isInstalledCli,
+    installRequiredTools,
     isAndroidBundleIdFormat,
     getScriptRunDirectoryPath,
     copyFileAsync,
@@ -31,17 +30,7 @@ export const init = async () => {
         }
     });
 
-    const isFlashlightInstalled = await isInstalledCli('flashlight');
-    if (!isFlashlightInstalled) {
-        console.log(chalk.green('Start flashlight installation'))
-        shell.exec('curl https://get.flashlight.dev | bash');
-    }
-
-    const isMaestroInstalled = await isInstalledCli('maestro');
-    if (!isMaestroInstalled) {
-        console.log(chalk.green('Start maestro installation'))
-        shell.exec('curl -Ls "https://get.maestro.mobile.dev" | bash');
-    }
+    await installRequiredTools();
 
     const { bundleId } = await inquirer.prompt([
         {

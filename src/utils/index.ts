@@ -132,3 +132,18 @@ export const getConfig = async () => {
         console.error(chalk.red(`Error copying file: ${error.message}`));
     }
 }
+
+export const installRequiredTools = async () => {
+    const isFlashlightInstalled = await isInstalledCli('flashlight');
+    if (!isFlashlightInstalled) {
+        console.log(chalk.green('Start flashlight installation'))
+        shell.exec('curl https://get.flashlight.dev | bash');
+    }
+
+    const isMaestroInstalled = await isInstalledCli('maestro');
+    if (!isMaestroInstalled) {
+        console.log(chalk.green('Start maestro installation'))
+        shell.exec('curl -Ls "https://get.maestro.mobile.dev" | bash');
+    }
+}
+

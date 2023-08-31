@@ -5,7 +5,7 @@ import {init} from './init';
 import {showLogo} from "./showLogo";
 import {report} from "./report";
 import {test} from "./test";
-import {checkInitialization} from "./utils";
+import {checkInitialization, installRequiredTools} from "./utils";
 import chalk from "chalk";
 
 const features = ['test', 'report'];
@@ -15,6 +15,8 @@ program
     .description('Interactive command line interface for flashlight')
     .version('0.1.0')
     .action(async () => {
+        await installRequiredTools();
+
         showLogo();
 
         const isInitialized = await checkInitialization();
