@@ -14,3 +14,7 @@ npx flashlight-icli
 
 ## Support
 It works on macOS. Windows and Linux are not tested yet.
+
+## Links
+* [flashlight](https://github.com/bamlab/flashlight)
+* [maestro](https://github.com/mobile-dev-inc/maestro)
