@@ -1,5 +1,5 @@
 # flashlight-icli
-![flashlight-icli](https://github.com/WayneKim92/flashlight-icli/assets/75321423/3748ac55-127e-495b-9f56-f2a5d888ee28)
+![flashlight-icli](https://github.com/WayneKim92/flashlight-icli/assets/75321423/8b8c1d55-0cef-4351-84e3-086198c22c8f)
 
 Interactive Command Line Interface for flashlight
 
